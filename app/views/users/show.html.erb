@@ -1,5 +1,5 @@
 <p id="notice"><%= notice %></p>
-
+ 
 <p>
   <strong>First name:</strong>
   <%= @user.first_name %>
@@ -15,5 +15,10 @@
   <%= @user.description %>
 </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<%= link_to 'Edit', edit_user_registration_path(@user) %> |
+<%= link_to 'Back', root_path %>
