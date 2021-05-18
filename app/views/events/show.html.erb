@@ -1,34 +1,21 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Start date:</strong>
-  <%= @event.start_date %>
-</p>
+<div class="card mx-auto mb-3" style="width: 70%">
+        <div class="card-body text-center">
+        <h5 class="card-title"><%= @event.title %></h5>
+        <h6 class="card-subtitle mb-2 text-muted">Date de l'évènement :<%= @event.start_date %></h6>
+        <p class="card-text"><%= @event.description %></p>  
+          Durée de l'évènement :<%= @event.duration %> min<br>
+          
+          
+          Prix de l'évènement :<%= @event.price %> € <br>
+          Dans la ville de :<%= @event.location %></td> <br><br>
+          <br>
+          L'administrateur : <%= @event.admin.email %>
+          <br><br>
+        <%= link_to 'Edit', edit_event_path(@event) %> |
+        <%= link_to 'Back', events_path %>          
+        </div>
+      </div>
 
-<p>
-  <strong>Duration:</strong>
-  <%= @event.duration %>
-</p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @event.description %>
-</p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @event.title %>
-</p>
-
-<p>
-  <strong>Price:</strong>
-  <%= @event.price %>
-</p>
-
-<p>
-  <strong>Location:</strong>
-  <%= @event.location %>
-</p>
-
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>

@@ -10,7 +10,7 @@ class Event < ApplicationRecord
   end
 
   def multiple_of_5
-    if (self.duration % 5) != 0
+    if (self.duration % 5) != 0 
     self.errors[:base] << "Number must be divisible by 5!"
     end
   end

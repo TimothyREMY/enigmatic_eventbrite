@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   before_action :set_event, only: %i[ show edit update destroy ]
+  before_action :authenticate_user, only: [:new, :show, :edit]
 
   # GET /events or /events.json
   def index
@@ -23,28 +24,33 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
 
-    respond_to do |format|
-      if @event.save
-        format.html { redirect_to @event, notice: "Event was successfully created." }
-        format.json { render :show, status: :created, location: @event }
+    
+    @event.admin = current_user
+
+    
+      if @event.save 
+        flash[:notice] = 'The event were successfully created'
+        redirect_to event_path(@event.id)
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @event.errors, status: :unprocessable_entity }
+        flash[:notice] = 'The event can not be created, it is not completed'
+        render :new
       end
-    end
   end
 
   # PATCH/PUT /events/1 or /events/1.json
   def update
-    respond_to do |format|
-      if @event.update(event_params)
-        format.html { redirect_to @event, notice: "Event was successfully updated." }
-        format.json { render :show, status: :ok, location: @event }
+   
+      if @event.update(event_params) && @event.admin == current_user
+        flash[:notice] = 'The event were successfully updated'
+        redirect_to events_url
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @event.errors, status: :unprocessable_entity }
+        flash[:notice] = 'The event can not be updated, you are not the author of this event'
+        redirect_to event_path(params[:id])
       end
-    end
+    
+      
+    
+    
   end
 
   # DELETE /events/1 or /events/1.json
@@ -64,6 +70,13 @@ class EventsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def event_params
-      params.require(:event).permit(:start_date, :duration, :description, :title, :price, :location)
+      params.require(:event).permit(:start_date, :duration, :description, :title, :price, :location, :admin_id)
+    end
+
+    def authenticate_user
+      unless current_user
+        flash[:danger] = "Please log in."
+        redirect_to new_session_path
+      end
     end
 end

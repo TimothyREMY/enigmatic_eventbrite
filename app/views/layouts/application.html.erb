@@ -19,7 +19,7 @@
         <li class="nav-item "><%= link_to "Créer un évènement", new_event_path, class: "nav-link text-light"%></li>
 
         <li class="nav-item dropdown ">
-        <a class="nav-link dropdown-toggle active bg-warning text-dark " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Mon profil</a>
+        <a class="nav-link dropdown-toggle active bg-warning text-dark " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><%= current_user.first_name %></a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
           <li class="dropdown-item"><%= link_to "Mon profil", user_path(current_user.id), class: "nav-link" %></li>
           <li class="dropdown-item"><%= link_to "Se déconnecter", destroy_user_session_path, class: "nav-link", method: :delete %></li>
